@@ -1,0 +1,51 @@
+<script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+  {
+  "colorTheme": "light",
+  "dateRange": "12m",
+  "showChart": true,
+  "locale": "in",
+  "largeChartUrl": "",
+  "isTransparent": false,
+  "width": "400",
+  "height": "660",
+  "plotLineColorGrowing": "rgba(33, 150, 243, 1)",
+  "plotLineColorFalling": "rgba(33, 150, 243, 1)",
+  "gridLineColor": "rgba(240, 243, 250, 1)",
+  "scaleFontColor": "rgba(120, 123, 134, 1)",
+  "belowLineFillColorGrowing": "rgba(111, 168, 220, 0.12)",
+  "belowLineFillColorFalling": "rgba(111, 168, 220, 0.12)",
+  "symbolActiveColor": "rgba(33, 150, 243, 0.12)",
+  "tabs": [
+    {
+      "title": "Indices",
+      "symbols": [
+        {
+          "s": "BSE:SENSEX",
+          "d": "SENSEX"
+        },
+        {
+          "s": "BSE:HDFCBANK",
+          "d": "HDFCBANK"
+        },
+        {
+          "s": "BSE:INFY",
+          "d": "INFY"
+        },
+        {
+          "s": "BSE:ITC",
+          "d": "ITC"
+        },
+        {
+          "s": "BSE:RELIANCE",
+          "d": "RELIANCE"
+        },
+        {
+          "s": "BSE:SUNPHARMA",
+          "d": "SUNPHARMA"
+        }
+      ],
+      "originalTitle": "Indices"
+    }
+  ]
+}
+</script>

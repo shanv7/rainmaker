@@ -1,0 +1,151 @@
+<div class="container-fluid">
+    <div class="row addColour" style="margin-bottom: 35px; margin-top: 20px">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-3">
+            <div class="row" style="margin-bottom: 10px; ; margin-top: 20px">
+                <div class="col-sm-6">
+                    <p-dropdown [(ngModel)]="selectedSecurity" [options]="securities" placeholder="Select a security..."
+                        optionLabel="label" autoWidth="false" [style]="{'width':'227px'}"
+                        (onClick)="getInstrumentList()"></p-dropdown>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 17px">
+                <p style="font-size: 13px">Selected Security: {{selectedSecurity ? selectedSecurity.label : 'none'}}</p>
+            </div>
+            <div class="row">
+                <div class="col-sm-4" style="margin-right: 0px; padding-right: 0px">
+                    <input type="text"
+                        style="width: 105px; padding-left: 5px; margin-right: 0px; background-color: white"
+                        placeholder="Lot Size" [ngModel]="lotSize" disabled="true">
+                </div>
+                <div class="col-sm-4" style="margin-left: 0px; padding-left:0px">
+                    <input type="text" style="width: 115px; padding-left: 5px; background-color: white"
+                        placeholder="U.V.(र)" [ngModel]="uValue" disabled="true">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-3" style="margin-left: 0px">
+            <div class="row" style="margin-bottom: 10px; ; margin-top: 20px">
+                <p-dropdown [(ngModel)]="selectedInstrument" [options]="instruments" (onClick)="setFields()"
+                    [filter]="true" placeholder="Select a value..." optionLabel="label" autoWidth="false"
+                    [style]="{'width':'275px'}"></p-dropdown>
+            </div>
+            <form #analysisForm="ngForm" (ngSubmit)="onAnalysisSubmit(analysisForm)">
+                <div class="row" style="margin-bottom: 10px">
+                    <div class="col-sm-4">
+                        <div class="row" style="margin-bottom: 10px">
+                            <input min="1" max="5000" placeholder="Price.." [ngModel]="setPrice" type="number" value="0"
+                                name="price" style="width:90px" ngModel required>
+                        </div>
+                        <div class="row">
+                            <input min="1" max="5000" placeholder="Quantity.." pTooltip="Positive integers only"
+                                [ngModel]="setQuantity" type="number" value="0" name="quantity" style="width:90px"
+                                oninput="validity.valid||(value='');" ngModel required>
+                        </div>
+                    </div>
+                    <!-- <div class="col-sm-6" style="margin-bottom: 10px">
+                            
+                        </div>  -->
+                    <div class="col-sm-2">
+                        <div class="row" style="margin-bottom: 15px">
+                            <p-radioButton name="position" value="LONG" label="Buy" [(ngModel)]="selectedPosition">
+                            </p-radioButton>
+                        </div>
+                        <div class="row" style="margin-top: 15px">
+                            <p-radioButton name="position" value="SHORT" label="Sell" [(ngModel)]="selectedPosition">
+                            </p-radioButton>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <button class="btn btn-primary" type="submit" [disabled]="disableButton"
+                            style="width: 70px ; margin-bottom: 10px">Submit</button>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-bottom: 10px; padding-left: 0px">
+
+                </div>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <div class="row" style="margin-bottom: 10px; padding-left: 0px;  margin-top: 20px">
+                <div class="col-sm-3"><label>Max Profit :</label></div>
+                <div class="col-sm-4">
+                    <input type="text" placeholder="0" disabled="true" style="background-color: white"
+                        [(ngModel)]="maxProfit">
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-3"><label>Max Loss :</label></div>
+                <div class="col-sm-4">
+                    <input type="text" placeholder="0" disabled="true" style="background-color: white"
+                        [(ngModel)]="maxLoss">
+                </div>
+            </div>
+            <div class="vl"></div>
+            <div class="row" style="margin-bottom: 10px;">
+                <div class="col-sm-3"><label>Breakevens :</label></div>
+                <div class="col-sm-4">
+                    <input type="text" placeholder="0" disabled="true" style="background-color: white"
+                        [(ngModel)]="Breakevens">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+
+            <div class="row" style="margin-top: 20px">
+                <p-table #at [columns]="cols" [value]="partialTableData" [paginator]="true" [rows]="10"
+                    [scrollable]="true" [style]="{width:'600px'}" ngDefaultControl *ngIf="partialTableData.length > 0"
+                    selectionMode="single" [(selection)]="selectedItems">
+                    <ng-template pTemplate="caption">
+                        <div class="row">
+                                <button pButton type="button" label="Clear Table" (click)="clearSelections($event)" style="margin-left: 10px; background-color: currentColor; border:currentColor; text-decoration-line: underline; -webkit-text-fill-color:  darkblue"></button>
+                                <button pButton type="button" label="Add Derivative" (click)="addSelection($event)" style="margin-left: 10px; background-color: currentColor; border:currentColor; text-decoration-line: underline; -webkit-text-fill-color:  darkblue"></button>
+                           <div class="col-sm-4">
+                            <i class="fa fa-search" style="margin-top:2px;  margin-left:30px; margin-right:10px"></i> 
+                             <input type="text" pInputText size="40" placeholder="Global Filter"
+                                (input)="at.filterGlobal($event.target.value, 'contains')"
+                                style="margin-left:4px;  width:150px; height: 30px; -webkit-text-fill-color:  darkblue">
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                            <ng-template let i=index pTemplate type="body">
+                                <p-button (onClick)="deleteAttachement(i)" icon="fa fa-fw fa-close"></p-button>
+                            </ng-template>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-summary let-columns="columns">
+                        <tr [pSelectableRow]="summary">
+                            <td *ngFor="let col of columns">
+                                {{summary[col.field]}}
+                            </td>
+                            <ng-template let-index="partialTableData" pTemplate type="body">
+                                <p-button (onClick)="deleteAttachement(index)" icon="fa fa-fw fa-close"></p-button>
+                            </ng-template>
+                        </tr>
+                    </ng-template>
+
+                </p-table>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div id="chartdiv" style="width: 100%; height: 500px"></div>
+        </div>
+        <!-- <canvas id="lineChart"></canvas> -->
+
+        <!-- </div> -->
+        <!-- <div class="col-sm-2"></div> -->
+    </div>
+</div>
